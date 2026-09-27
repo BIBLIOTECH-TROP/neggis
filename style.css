@@ -1,0 +1,1228 @@
+/* =========================================================
+   BIBLIOTECA ROMÂNTICA — PLAYLIST
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --accent: #ff6f91;
+    --accent-light: #ff9eb4;
+    --accent-dark: #e65378;
+
+    --text: #ffffff;
+    --muted: rgba(255, 255, 255, 0.68);
+
+    --glass: rgba(15, 10, 18, 0.68);
+    --glass-light: rgba(255, 255, 255, 0.08);
+
+    --border: rgba(255, 255, 255, 0.14);
+
+    --shadow: rgba(0, 0, 0, 0.45);
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background: #120c12;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   FUNDO COM FOTO
+   ========================================================= */
+
+.bg {
+    position: fixed;
+    inset: 0;
+
+    z-index: -3;
+
+    background-image: url("fotos/foto1.jpg");
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(22px);
+
+    transform: scale(1.12);
+
+    transition:
+        background-image 0.8s ease,
+        transform 1s ease;
+
+    animation: backgroundMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove {
+    from {
+        transform: scale(1.10);
+    }
+
+    to {
+        transform: scale(1.17);
+    }
+}
+
+
+/* =========================================================
+   CAMADA ESCURA SOBRE O FUNDO
+   ========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255, 111, 145, 0.25),
+            transparent 35%
+        ),
+
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(153, 61, 105, 0.24),
+            transparent 35%
+        ),
+
+        linear-gradient(
+            135deg,
+            rgba(12, 7, 13, 0.82),
+            rgba(26, 10, 20, 0.88)
+        );
+}
+
+
+/* =========================================================
+   APLICAÇÃO
+   ========================================================= */
+
+.app {
+    width: min(1200px, calc(100% - 40px));
+
+    margin: 0 auto;
+
+    padding: 50px 0 30px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.top {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 35px;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: var(--accent-light);
+
+    font-size: 0.72rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+
+    text-transform: uppercase;
+}
+
+.top h1 {
+    font-size: clamp(2rem, 4vw, 3.5rem);
+
+    line-height: 1.05;
+
+    letter-spacing: -0.04em;
+
+    margin-bottom: 12px;
+
+    text-shadow:
+        0 5px 25px rgba(0, 0, 0, 0.35);
+}
+
+.top p {
+    color: var(--muted);
+
+    font-size: 1rem;
+
+    max-width: 600px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CORAÇÃO DO HEADER
+   ========================================================= */
+
+.heart {
+    width: 60px;
+    height: 60px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 111, 145, 0.14);
+
+    border: 1px solid rgba(255, 111, 145, 0.3);
+
+    color: var(--accent-light);
+
+    font-size: 1.6rem;
+
+    box-shadow:
+        0 0 30px rgba(255, 111, 145, 0.15);
+
+    animation: heartBeat 2s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   LAYOUT PRINCIPAL
+   ========================================================= */
+
+.layout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.95fr)
+        minmax(0, 1.05fr);
+
+    gap: 24px;
+
+    align-items: stretch;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.player-card,
+.playlist-card {
+    background: var(--glass);
+
+    border: 1px solid var(--border);
+
+    border-radius: 28px;
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    box-shadow:
+        0 25px 70px var(--shadow);
+
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   PLAYER
+   ========================================================= */
+
+.player-card {
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   FOTO
+   ========================================================= */
+
+.photo-wrap {
+    position: relative;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    max-width: 430px;
+
+    margin: 0 auto 25px;
+
+    border-radius: 24px;
+
+    overflow: hidden;
+
+    background: #1b1017;
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.5);
+
+    transition:
+        transform 0.5s ease,
+        opacity 0.3s ease;
+}
+
+.photo-wrap:hover {
+    transform: scale(1.015);
+}
+
+.photo-wrap.changing {
+    opacity: 0.3;
+
+    transform: scale(0.97);
+}
+
+.photo-wrap img {
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    transition:
+        transform 0.8s ease,
+        filter 0.5s ease;
+}
+
+.photo-wrap:hover img {
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   BRILHO DA FOTO
+   ========================================================= */
+
+.photo-shine {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.14),
+            transparent 35%,
+            transparent 70%,
+            rgba(255, 111, 145, 0.15)
+        );
+}
+
+
+/* =========================================================
+   INFORMAÇÕES DA MÚSICA
+   ========================================================= */
+
+.song-info {
+    text-align: center;
+
+    margin-bottom: 22px;
+}
+
+.song-info > span {
+    display: block;
+
+    color: var(--accent-light);
+
+    font-size: 0.7rem;
+
+    font-weight: 800;
+
+    letter-spacing: 0.16em;
+
+    margin-bottom: 8px;
+}
+
+.song-info h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+
+    margin-bottom: 5px;
+
+    line-height: 1.15;
+}
+
+.song-info p {
+    color: var(--muted);
+
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   PROGRESSO
+   ========================================================= */
+
+.progress-area {
+    width: 100%;
+
+    margin-bottom: 18px;
+}
+
+#progress {
+    width: 100%;
+
+    height: 5px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    border-radius: 10px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    background: rgba(255, 255, 255, 0.15);
+}
+
+
+/* Chrome / Edge / Safari */
+
+#progress::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 0 15px rgba(255, 111, 145, 0.7);
+
+    cursor: pointer;
+}
+
+
+/* Firefox */
+
+#progress::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--accent);
+
+    box-shadow:
+        0 0 15px rgba(255, 111, 145, 0.7);
+
+    cursor: pointer;
+}
+
+
+.times {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 8px;
+
+    color: var(--muted);
+
+    font-size: 0.75rem;
+}
+
+
+/* =========================================================
+   CONTROLES
+   ========================================================= */
+
+.controls {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 20px;
+
+    margin: 10px 0 20px;
+}
+
+.controls button {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    color: white;
+
+    font-size: 1.1rem;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255, 255, 255, 0.13);
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.controls button:active {
+    transform: scale(0.94);
+}
+
+
+/* BOTÃO PRINCIPAL */
+
+.controls .play {
+    width: 64px;
+    height: 64px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--accent),
+            var(--accent-dark)
+        );
+
+    border: none;
+
+    font-size: 1.25rem;
+
+    box-shadow:
+        0 10px 35px rgba(255, 111, 145, 0.35);
+}
+
+.controls .play:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #ff7d9d,
+            #e85b7c
+        );
+
+    box-shadow:
+        0 14px 40px rgba(255, 111, 145, 0.48);
+}
+
+
+/* =========================================================
+   VOLUME
+   ========================================================= */
+
+.volume {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    width: min(230px, 100%);
+
+    margin: 0 auto;
+}
+
+.volume span {
+    font-size: 0.9rem;
+
+    opacity: 0.8;
+}
+
+#volume {
+    flex: 1;
+
+    height: 4px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.16);
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+#volume::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+
+    width: 12px;
+    height: 12px;
+
+    border-radius: 50%;
+
+    background: var(--accent-light);
+
+    cursor: pointer;
+}
+
+#volume::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: var(--accent-light);
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   PLAYLIST
+   ========================================================= */
+
+.playlist-card {
+    padding: 24px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 600px;
+}
+
+
+/* =========================================================
+   TÍTULO DA PLAYLIST
+   ========================================================= */
+
+.playlist-title {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 18px;
+}
+
+.playlist-title h2 {
+    font-size: 1.8rem;
+
+    line-height: 1;
+}
+
+#count {
+    color: var(--muted);
+
+    font-size: 0.78rem;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   LISTA
+   ========================================================= */
+
+.playlist {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   ITEM DA PLAYLIST
+   ========================================================= */
+
+.track {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        30px
+        48px
+        minmax(0, 1fr)
+        25px;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px;
+
+    border: 1px solid transparent;
+
+    border-radius: 16px;
+
+    background: transparent;
+
+    color: white;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        border 0.25s ease,
+        transform 0.2s ease;
+}
+
+.track:hover {
+    background: rgba(255, 255, 255, 0.07);
+
+    transform: translateX(3px);
+}
+
+.track.active {
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255, 111, 145, 0.18),
+            rgba(255, 111, 145, 0.06)
+        );
+
+    border-color:
+        rgba(255, 111, 145, 0.25);
+
+    box-shadow:
+        inset 3px 0 0 var(--accent);
+}
+
+
+/* número */
+
+.track .num {
+    color: var(--muted);
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+
+    text-align: center;
+}
+
+.track.active .num {
+    color: var(--accent-light);
+}
+
+
+/* imagem */
+
+.track img {
+    width: 48px;
+    height: 48px;
+
+    object-fit: cover;
+
+    border-radius: 11px;
+
+    display: block;
+}
+
+
+/* texto */
+
+.track > span:nth-child(3) {
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.track strong {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 0.9rem;
+}
+
+.track small {
+    color: var(--muted);
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    font-size: 0.75rem;
+}
+
+
+/* coração */
+
+.track > span:last-child {
+    color: rgba(255, 255, 255, 0.35);
+
+    font-size: 1.1rem;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.track:hover > span:last-child,
+.track.active > span:last-child {
+    color: var(--accent-light);
+
+    transform: scale(1.1);
+}
+
+
+/* =========================================================
+   CAIXA DAS LETRAS
+   ========================================================= */
+
+.lyrics-box {
+    flex: 1;
+
+    min-height: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    margin-top: 5px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+/* =========================================================
+   CABEÇALHO DA LETRA
+   ========================================================= */
+
+.lyrics-head {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 12px;
+}
+
+.lyrics-head .eyebrow {
+    margin-bottom: 0;
+}
+
+#lyricStatus {
+    color: var(--muted);
+
+    font-size: 0.68rem;
+}
+
+
+/* =========================================================
+   ÁREA SCROLL DAS LETRAS
+   ========================================================= */
+
+.lyrics-scroll {
+    height: 250px;
+
+    overflow-y: auto;
+
+    padding: 20px 12px 20px 5px;
+
+    scroll-behavior: smooth;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent 0%,
+            black 8%,
+            black 92%,
+            transparent 100%
+        );
+}
+
+
+/* Scrollbar */
+
+.lyrics-scroll::-webkit-scrollbar {
+    width: 5px;
+}
+
+.lyrics-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.lyrics-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 111, 145, 0.35);
+
+    border-radius: 20px;
+}
+
+.lyrics-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 111, 145, 0.6);
+}
+
+
+/* =========================================================
+   LINHAS DA LETRA
+   ========================================================= */
+
+.lyric-line {
+    display: block;
+
+    width: 100%;
+
+    padding: 8px 5px;
+
+    border: none;
+
+    background: transparent;
+
+    color: rgba(255, 255, 255, 0.42);
+
+    font-family: inherit;
+
+    font-size: 0.9rem;
+
+    line-height: 1.5;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        font-size 0.3s ease;
+}
+
+.lyric-line:hover {
+    color: rgba(255, 255, 255, 0.75);
+
+    transform: translateX(3px);
+}
+
+
+/* linha já cantada */
+
+.lyric-line.past {
+    color: rgba(255, 255, 255, 0.28);
+}
+
+
+/* linha atual */
+
+.lyric-line.active {
+    color: #ffffff;
+
+    font-size: 1.08rem;
+
+    font-weight: 700;
+
+    transform: translateX(7px);
+
+    text-shadow:
+        0 0 18px rgba(255, 111, 145, 0.35);
+}
+
+
+/* =========================================================
+   RODAPÉ
+   ========================================================= */
+
+footer {
+    padding: 30px 0 5px;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    text-align: center;
+
+    font-size: 0.78rem;
+
+    letter-spacing: 0.03em;
+}
+
+footer span {
+    color: var(--accent);
+
+    margin-left: 4px;
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .app {
+        width: min(700px, calc(100% - 30px));
+
+        padding-top: 35px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .player-card {
+        max-width: 650px;
+
+        width: 100%;
+
+        margin: 0 auto;
+    }
+
+    .playlist-card {
+        min-height: auto;
+    }
+
+    .lyrics-scroll {
+        height: 280px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .app {
+        width: calc(100% - 20px);
+
+        padding-top: 25px;
+    }
+
+    .top {
+        margin-bottom: 25px;
+
+        gap: 15px;
+    }
+
+    .top h1 {
+        font-size: 1.9rem;
+    }
+
+    .top p {
+        font-size: 0.88rem;
+    }
+
+    .heart {
+        width: 46px;
+        height: 46px;
+
+        font-size: 1.2rem;
+    }
+
+    .player-card,
+    .playlist-card {
+        padding: 17px;
+
+        border-radius: 22px;
+    }
+
+    .photo-wrap {
+        border-radius: 18px;
+
+        margin-bottom: 20px;
+    }
+
+    .song-info h2 {
+        font-size: 1.55rem;
+    }
+
+    .controls {
+        gap: 15px;
+    }
+
+    .controls button {
+        width: 43px;
+        height: 43px;
+    }
+
+    .controls .play {
+        width: 58px;
+        height: 58px;
+    }
+
+    .playlist-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .track {
+        grid-template-columns:
+            24px
+            43px
+            minmax(0, 1fr)
+            20px;
+
+        gap: 8px;
+
+        padding: 8px;
+    }
+
+    .track img {
+        width: 43px;
+        height: 43px;
+    }
+
+    .track strong {
+        font-size: 0.82rem;
+    }
+
+    .track small {
+        font-size: 0.7rem;
+    }
+
+    .lyrics-scroll {
+        height: 240px;
+    }
+
+    .lyric-line {
+        font-size: 0.82rem;
+    }
+
+    .lyric-line.active {
+        font-size: 0.98rem;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .top {
+        align-items: center;
+    }
+
+    .top h1 {
+        font-size: 1.65rem;
+    }
+
+    .heart {
+        display: none;
+    }
+
+    .player-card,
+    .playlist-card {
+        padding: 14px;
+    }
+
+    .track {
+        grid-template-columns:
+            20px
+            40px
+            minmax(0, 1fr)
+            18px;
+    }
+
+    .track img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* =========================================================
+   ACESSIBILIDADE
+   ========================================================= */
+
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--accent-light);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUZIR ANIMAÇÕES
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uma Playlist Para Você ❤️</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="overlay"></div>
+
+  <main class="app">
+    <header class="top">
+      <div>
+        <span class="eyebrow">UMA PLAYLIST PARA VOCÊ</span>
+        <h1>5 músicas que te definem  ❤️</h1>
+        <p>Uma pequena coleção de músicas que me fazem lembrar de você.</p>
+      </div>
+      <div class="heart">♥</div>
+    </header>
+
+    <section class="layout">
+      <div class="player-card">
+        <div class="photo-wrap">
+          <img id="photo" src="fotos/foto1.jpg" alt="Foto especial">
+          <div class="photo-shine"></div>
+        </div>
+
+        <div class="song-info">
+          <span id="trackNumber">FAIXA 01</span>
+          <h2 id="title">Sinais de Fogo</h2>
+          <p id="artist">Preta Gil</p>
+        </div>
+
+        <div class="progress-area">
+          <input id="progress" type="range" min="0" max="100" value="0" aria-label="Progresso da música">
+          <div class="times"><span id="currentTime">0:00</span><span id="duration">0:00</span></div>
+        </div>
+
+        <div class="controls">
+          <button id="prev" aria-label="Música anterior">⏮</button>
+          <button id="play" class="play" aria-label="Reproduzir">▶</button>
+          <button id="next" aria-label="Próxima música">⏭</button>
+        </div>
+
+        <div class="volume">
+          <span>🔊</span>
+          <input id="volume" type="range" min="0" max="1" step="0.01" value="0.85" aria-label="Volume">
+        </div>
+
+        <audio id="audio" preload="metadata"></audio>
+      </div>
+
+      <aside class="playlist-card">
+        <div class="playlist-title">
+          <div>
+            <span class="eyebrow">MINHA PLAYLIST</span>
+            <h2>Para você</h2>
+          </div>
+          <span id="count">5 faixas</span>
+        </div>
+        <div id="playlist" class="playlist"></div>
+
+        <div class="lyrics-box">
+          <div class="lyrics-head"><span class="eyebrow">LETRA</span><span id="lyricStatus">sincronização</span></div>
+          <div id="lyrics" class="lyrics-scroll" aria-live="polite"></div>
+        </div>
+      </aside>
+    </section>
+
+    <footer>feito com carinho, especialmente para você <span>♥</span></footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
